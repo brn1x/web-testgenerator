@@ -9,6 +9,8 @@ namespace GeradorDeProvas.Models.Entity
     {
         public int Id { get; set; }
         public virtual Period Period { get; set; }
+        public virtual DateTime Data { get; set; }
+        public virtual Student Student { get; set; }
         public virtual List<TestQuestion> TestQuestions { get; set; }
     }
 }

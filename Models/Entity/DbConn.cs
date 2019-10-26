@@ -11,7 +11,7 @@ namespace GeradorDeProvas.Models
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Database=gerator;Username=postgres;Port=5432;Password=root");
+            optionsBuilder.UseNpgsql("Host=localhost;Database=generator;Username=postgres;Port=5432;Password=root");
             optionsBuilder.UseLazyLoadingProxies();
         }
 

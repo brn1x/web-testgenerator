@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace GeradorDeProvas.Migrations
@@ -39,37 +40,11 @@ namespace GeradorDeProvas.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Name = table.Column<string>(nullable: true),
-                    SubjectId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Subjects", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Subjects_Subjects_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subjects",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    PeriodId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Tests_Periods_PeriodId",
-                        column: x => x.PeriodId,
-                        principalTable: "Periods",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,6 +67,33 @@ namespace GeradorDeProvas.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_PeriodStudents_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    PeriodId = table.Column<int>(nullable: true),
+                    Data = table.Column<DateTime>(nullable: false),
+                    StudentId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tests_Periods_PeriodId",
+                        column: x => x.PeriodId,
+                        principalTable: "Periods",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Tests_Students_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
@@ -131,7 +133,6 @@ namespace GeradorDeProvas.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Text = table.Column<string>(nullable: true),
-                    CorrectAnswer = table.Column<int>(nullable: false),
                     SubjectId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -152,6 +153,7 @@ namespace GeradorDeProvas.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Text = table.Column<string>(nullable: true),
+                    CorrectAnswer = table.Column<int>(nullable: false),
                     QuestionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -222,11 +224,6 @@ namespace GeradorDeProvas.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Subjects_SubjectId",
-                table: "Subjects",
-                column: "SubjectId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TestQuestions_QuestionId",
                 table: "TestQuestions",
                 column: "QuestionId");
@@ -240,6 +237,11 @@ namespace GeradorDeProvas.Migrations
                 name: "IX_Tests_PeriodId",
                 table: "Tests",
                 column: "PeriodId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tests_StudentId",
+                table: "Tests",
+                column: "StudentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -257,9 +259,6 @@ namespace GeradorDeProvas.Migrations
                 name: "TestQuestions");
 
             migrationBuilder.DropTable(
-                name: "Students");
-
-            migrationBuilder.DropTable(
                 name: "Questions");
 
             migrationBuilder.DropTable(
@@ -270,6 +269,9 @@ namespace GeradorDeProvas.Migrations
 
             migrationBuilder.DropTable(
                 name: "Periods");
+
+            migrationBuilder.DropTable(
+                name: "Students");
         }
     }
 }

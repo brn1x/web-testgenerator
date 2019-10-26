@@ -24,6 +24,8 @@ namespace GeradorDeProvas.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("CorrectAnswer");
+
                     b.Property<int?>("QuestionId");
 
                     b.Property<string>("Text");
@@ -88,8 +90,6 @@ namespace GeradorDeProvas.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CorrectAnswer");
-
                     b.Property<int?>("SubjectId");
 
                     b.Property<string>("Text");
@@ -120,11 +120,7 @@ namespace GeradorDeProvas.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("SubjectId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SubjectId");
 
                     b.ToTable("Subjects");
                 });
@@ -134,11 +130,17 @@ namespace GeradorDeProvas.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Data");
+
                     b.Property<int?>("PeriodId");
+
+                    b.Property<int?>("StudentId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PeriodId");
+
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Tests");
                 });
@@ -193,14 +195,7 @@ namespace GeradorDeProvas.Migrations
             modelBuilder.Entity("GeradorDeProvas.Models.Entity.Question", b =>
                 {
                     b.HasOne("GeradorDeProvas.Models.Entity.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
-                });
-
-            modelBuilder.Entity("GeradorDeProvas.Models.Entity.Subject", b =>
-                {
-                    b.HasOne("GeradorDeProvas.Models.Entity.Subject")
-                        .WithMany("Subjects")
+                        .WithMany("Questions")
                         .HasForeignKey("SubjectId");
                 });
 
@@ -209,6 +204,10 @@ namespace GeradorDeProvas.Migrations
                     b.HasOne("GeradorDeProvas.Models.Entity.Period", "Period")
                         .WithMany()
                         .HasForeignKey("PeriodId");
+
+                    b.HasOne("GeradorDeProvas.Models.Entity.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
                 });
 
             modelBuilder.Entity("GeradorDeProvas.Models.Entity.TestQuestion", b =>
