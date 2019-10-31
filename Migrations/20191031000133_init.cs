@@ -133,6 +133,7 @@ namespace GeradorDeProvas.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Text = table.Column<string>(nullable: true),
+                    CorrectAnswer = table.Column<int>(nullable: false),
                     SubjectId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -153,7 +154,6 @@ namespace GeradorDeProvas.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Text = table.Column<string>(nullable: true),
-                    CorrectAnswer = table.Column<int>(nullable: false),
                     QuestionId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

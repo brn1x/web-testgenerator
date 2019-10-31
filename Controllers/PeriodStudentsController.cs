@@ -10,22 +10,22 @@ using GeradorDeProvas.Models.Entity;
 
 namespace GeradorDeProvas.Controllers
 {
-    public class QuestionsController : Controller
+    public class PeriodStudentsController : Controller
     {
         private readonly DbConn _context;
 
-        public QuestionsController(DbConn context)
+        public PeriodStudentsController(DbConn context)
         {
             _context = context;
         }
 
-        // GET: Questions
+        // GET: PeriodStudents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Questions.ToListAsync());
+            return View(await _context.PeriodStudents.ToListAsync());
         }
 
-        // GET: Questions/Details/5
+        // GET: PeriodStudents/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var periodStudent = await _context.PeriodStudents
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (question == null)
+            if (periodStudent == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(periodStudent);
         }
 
-        // GET: Questions/Create
+        // GET: PeriodStudents/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Questions/Create
+        // POST: PeriodStudents/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Text,CorrectAnswer")] Question question)
+        public async Task<IActionResult> Create([Bind("Id")] PeriodStudent periodStudent)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(question);
+                _context.Add(periodStudent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(periodStudent);
         }
 
-        // GET: Questions/Edit/5
+        // GET: PeriodStudents/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions.FindAsync(id);
-            if (question == null)
+            var periodStudent = await _context.PeriodStudents.FindAsync(id);
+            if (periodStudent == null)
             {
                 return NotFound();
             }
-            return View(question);
+            return View(periodStudent);
         }
 
-        // POST: Questions/Edit/5
+        // POST: PeriodStudents/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Text,CorrectAnswer")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] PeriodStudent periodStudent)
         {
-            if (id != question.Id)
+            if (id != periodStudent.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace GeradorDeProvas.Controllers
             {
                 try
                 {
-                    _context.Update(question);
+                    _context.Update(periodStudent);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!QuestionExists(question.Id))
+                    if (!PeriodStudentExists(periodStudent.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace GeradorDeProvas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(question);
+            return View(periodStudent);
         }
 
-        // GET: Questions/Delete/5
+        // GET: PeriodStudents/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var question = await _context.Questions
+            var periodStudent = await _context.PeriodStudents
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (question == null)
+            if (periodStudent == null)
             {
                 return NotFound();
             }
 
-            return View(question);
+            return View(periodStudent);
         }
 
-        // POST: Questions/Delete/5
+        // POST: PeriodStudents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var question = await _context.Questions.FindAsync(id);
-            _context.Questions.Remove(question);
+            var periodStudent = await _context.PeriodStudents.FindAsync(id);
+            _context.PeriodStudents.Remove(periodStudent);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool QuestionExists(int id)
+        private bool PeriodStudentExists(int id)
         {
-            return _context.Questions.Any(e => e.Id == id);
+            return _context.PeriodStudents.Any(e => e.Id == id);
         }
     }
 }

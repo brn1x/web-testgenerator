@@ -15,9 +15,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Text)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CorrectAnswer)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -26,9 +23,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CorrectAnswer)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

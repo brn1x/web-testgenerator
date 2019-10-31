@@ -54,7 +54,7 @@ namespace GeradorDeProvas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Text,CorrectAnswer")] Alternative alternative)
+        public async Task<IActionResult> Create([Bind("Id,Text")] Alternative alternative)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace GeradorDeProvas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Text,CorrectAnswer")] Alternative alternative)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Text")] Alternative alternative)
         {
             if (id != alternative.Id)
             {

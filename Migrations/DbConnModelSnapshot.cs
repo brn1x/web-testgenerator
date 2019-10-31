@@ -24,8 +24,6 @@ namespace GeradorDeProvas.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CorrectAnswer");
-
                     b.Property<int?>("QuestionId");
 
                     b.Property<string>("Text");
@@ -89,6 +87,8 @@ namespace GeradorDeProvas.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CorrectAnswer");
 
                     b.Property<int?>("SubjectId");
 

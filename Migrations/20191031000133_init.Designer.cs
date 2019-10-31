@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace GeradorDeProvas.Migrations
 {
     [DbContext(typeof(DbConn))]
-    [Migration("20191026182729_init")]
+    [Migration("20191031000133_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,8 +25,6 @@ namespace GeradorDeProvas.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<int>("CorrectAnswer");
 
                     b.Property<int?>("QuestionId");
 
@@ -91,6 +89,8 @@ namespace GeradorDeProvas.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CorrectAnswer");
 
                     b.Property<int?>("SubjectId");
 
