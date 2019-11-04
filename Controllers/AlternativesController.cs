@@ -22,6 +22,8 @@ namespace GeradorDeProvas.Controllers
         // GET: Alternatives
         public async Task<IActionResult> Index()
         {
+            var alternative = new Alternative() { Text = "Teste" };
+            ViewBag.Fodase = alternative.Text;
             return View(await _context.Alternatives.ToListAsync());
         }
 
