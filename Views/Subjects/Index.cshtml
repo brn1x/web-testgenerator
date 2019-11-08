@@ -1,7 +1,7 @@
-﻿@model IEnumerable<GeradorDeProvas.Models.Entity.Subject>
+﻿@model IEnumerable<GeradorDeProvas.Models.Entity.PeriodSubject>
 
 @{
-    ViewData["Title"] = "Subsjects";
+    ViewData["Title"] = "Subjects";
 }
 
 <h1>Subjects</h1>
@@ -13,7 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Subject
+            </th>
+            <th>
+                Period
             </th>
             <th></th>
         </tr>
@@ -22,12 +25,15 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => item.Subject.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                @Html.DisplayFor(modelItem => item.Period.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Subject.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Subject.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Subject.Id">Delete</a>
             </td>
         </tr>
 }

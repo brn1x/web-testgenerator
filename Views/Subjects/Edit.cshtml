@@ -1,4 +1,4 @@
-﻿@model GeradorDeProvas.Models.Entity.Subject
+﻿@model GeradorDeProvas.Models.Entity.PeriodSubject
 
 @{
     ViewData["Title"] = "Subject Edit";
@@ -13,9 +13,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label class="control-label">Subject</label>
+                <input asp-for="Subject.Name" class="form-control"/>
+                <span asp-validation-for="Subject.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Period</label>
+                <select class="form-control" asp-for="Period.Name"
+                        asp-items="@ViewBag.Periods" disabled></select>
+                <span asp-validation-for="Period.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

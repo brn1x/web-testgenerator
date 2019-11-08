@@ -1,4 +1,4 @@
-﻿@model GeradorDeProvas.Models.Entity.Question
+﻿@model GeradorDeProvas.Models.ViewModel.QuestionSubjectAlternativeVM
 
 @{
     ViewData["Title"] = "Create";
@@ -13,6 +13,12 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Subject"></label>
+                <select class="form-control" asp-for="Subject"
+                        asp-items="@ViewBag.Subjects"></select>
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
@@ -21,6 +27,9 @@
                 <label asp-for="CorrectAnswer" class="control-label"></label>
                 <input asp-for="CorrectAnswer" class="form-control" />
                 <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
