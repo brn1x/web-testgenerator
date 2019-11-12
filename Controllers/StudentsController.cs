@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GeradorDeProvas.Models;
 using GeradorDeProvas.Models.Entity;
+using GeradorDeProvas.Models.ViewModel;
 
 namespace GeradorDeProvas.Controllers
 {
@@ -19,10 +20,16 @@ namespace GeradorDeProvas.Controllers
             _context = context;
         }
 
+        private void fillPeriods()
+        {
+            ViewBag.Periods = _context.Periods.Select(s => new SelectListItem()
+            { Text = s.Name, Value = s.Id.ToString() }).ToList();
+        }
+
         // GET: Students
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+            return View(await _context.PeriodStudents.ToListAsync());
         }
 
         // GET: Students/Details/5
@@ -33,8 +40,8 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _context.PeriodStudents
+                .FirstOrDefaultAsync(m => m.Student.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -46,6 +53,7 @@ namespace GeradorDeProvas.Controllers
         // GET: Students/Create
         public IActionResult Create()
         {
+            fillPeriods();
             return View();
         }
 
@@ -54,15 +62,25 @@ namespace GeradorDeProvas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,Student,Period")] PeriodStudentVM periodStudent)
         {
             if (ModelState.IsValid)
             {
+                var student = new Student();
+                student.Name = periodStudent.Student;
+
+                int selectedPeriod = 0;
+                int.TryParse(periodStudent.Period, out selectedPeriod);
+
+                var period = _context.Periods.Where(s => s.Id == selectedPeriod).FirstOrDefault();
+
                 _context.Add(student);
+                period.PeriodStudent.Add(new Models.Entity.PeriodStudent { Student = student });
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(periodStudent);
         }
 
         // GET: Students/Edit/5
@@ -73,12 +91,23 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+
+            PeriodStudent periodStudent = new PeriodStudent();
+            periodStudent = await _context.PeriodStudents.Where(w => w.Student.Id == id).FirstAsync();
+
+            PeriodStudentVM periodStudentVM = new PeriodStudentVM();
+            periodStudentVM.Id = periodStudent.Student.Id;
+            periodStudentVM.Student = periodStudent.Student.Name;
+            periodStudentVM.Period = periodStudent.Period.Name;
+
+            if (periodStudent == null)
             {
                 return NotFound();
             }
-            return View(student);
+
+            ViewBag.Periods = _context.Periods.Select(s => new SelectListItem()
+            { Selected = (s.Id == periodStudent.Period.Id), Text = s.Name, Value = s.Name }).ToList();
+            return View(periodStudentVM);
         }
 
         // POST: Students/Edit/5
@@ -86,9 +115,9 @@ namespace GeradorDeProvas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Student,Period")] PeriodStudentVM periodStudent)
         {
-            if (id != student.Id)
+            if (id != periodStudent.Id)
             {
                 return NotFound();
             }
@@ -97,12 +126,17 @@ namespace GeradorDeProvas.Controllers
             {
                 try
                 {
+                    var student = new Student();
+                    student.Id = periodStudent.Id;
+                    student.Name = periodStudent.Student;
+
                     _context.Update(student);
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!StudentExists(periodStudent.Id))
                     {
                         return NotFound();
                     }
@@ -113,7 +147,7 @@ namespace GeradorDeProvas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(periodStudent);
         }
 
         // GET: Students/Delete/5
@@ -124,8 +158,8 @@ namespace GeradorDeProvas.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _context.PeriodStudents
+                .FirstOrDefaultAsync(m => m.Student.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -139,8 +173,9 @@ namespace GeradorDeProvas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var student = await _context.Students.FindAsync(id);
-            _context.Students.Remove(student);
+            var student = await _context.PeriodStudents.Where(w => w.Student.Id == id).FirstAsync();
+            _context.PeriodStudents.Remove(student);
+            _context.Students.Remove(student.Student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

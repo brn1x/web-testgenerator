@@ -10,5 +10,7 @@ namespace GeradorDeProvas.Models.Entity
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual List<PeriodSubject> PeriodSubjects { get; set; }
+
+        public virtual List<PeriodStudent> PeriodStudent { get; set; }
     }
 }
