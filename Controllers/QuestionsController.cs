@@ -69,7 +69,7 @@ namespace GeradorDeProvas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Text,CorrectAnswer,Subject")] QuestionSubjectAlternativeVM questionSubjectAlternative)
+        public async Task<IActionResult> Create([Bind("Id,Text,CorrectAnswer,Subject,AlternativeQtt")] QuestionSubjectAlternativeVM questionSubjectAlternative)
         {
             if (ModelState.IsValid)
             {

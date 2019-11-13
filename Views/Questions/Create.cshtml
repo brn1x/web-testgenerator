@@ -7,26 +7,34 @@
 <h1>Create</h1>
 
 <h4>Question</h4>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Subject"></label>
+                <label asp-for="Subject">Subject</label>
                 <select class="form-control" asp-for="Subject"
                         asp-items="@ViewBag.Subjects"></select>
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
+                <label asp-for="Text" class="control-label">Question</label>
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CorrectAnswer" class="control-label"></label>
+                <label asp-for="CorrectAnswer" class="control-label">Correct Answer</label>
                 <input asp-for="CorrectAnswer" class="form-control" />
                 <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+            </div>
+            <div id="app">
+                <textarea class="form-control" type="text" placeholder="Alternative" rows="5"></textarea>
+                <button class="btn btn-info form-control">Add Alternative</button>
+                <ul class=""></ul>
             </div>
             <div class="form-group">
 
@@ -37,10 +45,8 @@
         </form>
     </div>
 </div>
+<script src="~/js/Functions.js"></script>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
