@@ -1,4 +1,4 @@
-﻿@model GeradorDeProvas.Models.ViewModel.QuestionSubjectAlternativeVM
+﻿@model GeradorDeProvas.Models.ViewModel.QuestionVM
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,16 +11,16 @@
     <h4>Question</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Text)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Question)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Text)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Question)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.CorrectAnswer)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CorrectAnswer)
         </dd>
         <dt class="col-sm-2">
@@ -29,10 +29,40 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Subject)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlternativeA)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlternativeA)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlternativeB)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlternativeB)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlternativeC)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlternativeC)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlternativeD)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlternativeD)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AlternativeE)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.AlternativeE)
+        </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="QuestionId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

@@ -1,9 +1,8 @@
-﻿@model GeradorDeProvas.Models.ViewModel.QuestionSubjectAlternativeVM
+﻿@model GeradorDeProvas.Models.ViewModel.QuestionVM
 
 @{
     ViewData["Title"] = "Create";
 }
-
 <h1>Create</h1>
 
 <h4>Question</h4>
@@ -17,30 +16,49 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Subject">Subject</label>
-                <select class="form-control" asp-for="Subject"
+                <select id="subject" name="subject" class="form-control" asp-for="Subject"
                         asp-items="@ViewBag.Subjects"></select>
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Text" class="control-label">Question</label>
-                <input asp-for="Text" class="form-control" />
-                <span asp-validation-for="Text" class="text-danger"></span>
+                <label asp-for="Question" class="control-label">Question</label>
+                <textarea asp-for="Question" class="form-control" placeholder="Question" rows="5"></textarea>
+                <span asp-validation-for="Question" class="text-danger"></span>
+            </div>
+            <div>
+                <label class="control-label">Alternative A</label>
+                <textarea asp-for="AlternativeA" class="form-control" type="text" placeholder="Alternative A" rows="5"></textarea>
+                <span asp-validation-for="AlternativeA" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="1">
+            </div>
+            <div>
+                <label class="control-label">Alternative B</label>
+                <textarea asp-for="AlternativeB" class="form-control" type="text" placeholder="Alternative B" rows="5"></textarea>
+                <span asp-validation-for="AlternativeB" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="2">
+            </div>
+            <div>
+                <label class="control-label">Alternative C</label>
+                <textarea asp-for="AlternativeC" class="form-control" type="text" placeholder="Alternative C" rows="5"></textarea>
+                <span asp-validation-for="AlternativeC" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="3">
+            </div>
+            <div>
+                <label class="control-label">Alternative D</label>
+                <textarea asp-for="AlternativeD" class="form-control" type="text" placeholder="Alternative D" rows="5"></textarea>
+                <span asp-validation-for="AlternativeD" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="4">
+            </div>
+            <div>
+                <label class="control-label">Alternative E</label>
+                <textarea asp-for="AlternativeE" class="form-control" type="text" placeholder="Alternative E" rows="5"></textarea>
+                <span asp-validation-for="AlternativeE" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="5">
             </div>
             <div class="form-group">
-                <label asp-for="CorrectAnswer" class="control-label">Correct Answer</label>
-                <input asp-for="CorrectAnswer" class="form-control" />
-                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
-            </div>
-            <div id="app">
-                <textarea class="form-control" type="text" placeholder="Alternative" rows="5"></textarea>
-                <button class="btn btn-info form-control">Add Alternative</button>
-                <ul class=""></ul>
             </div>
             <div class="form-group">
-
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" id="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -1,4 +1,4 @@
-﻿@model GeradorDeProvas.Models.ViewModel.QuestionSubjectAlternativeVM
+﻿@model GeradorDeProvas.Models.ViewModel.QuestionVM
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,22 +12,47 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="QuestionId" />
             <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
-                <span asp-validation-for="Text" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CorrectAnswer" class="control-label"></label>
-                <input asp-for="CorrectAnswer" class="form-control" />
-                <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                <label asp-for="Question" class="control-label"></label>
+                <textarea asp-for="Question" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Question" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Subject"></label>
                 <select class="form-control" asp-for="Subject"
                         asp-items="@ViewBag.Subjects" disabled></select>
                 <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="AlternativeA" class="control-label"></label>
+                <textarea asp-for="AlternativeA" class="form-control"></textarea>
+                <span asp-validation-for="AlternativeA" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="1">
+            </div>
+            <div>
+                <label asp-for="AlternativeB" class="control-label"></label>
+                <textarea asp-for="AlternativeB" class="form-control"></textarea>
+                <span asp-validation-for="AlternativeB" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="2">
+            </div>
+            <div>
+                <label asp-for="AlternativeC" class="control-label"></label>
+                <textarea asp-for="AlternativeC" class="form-control"></textarea>
+                <span asp-validation-for="AlternativeC" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="3">
+            </div>
+            <div>
+                <label asp-for="AlternativeD" class="control-label"></label>
+                <textarea asp-for="AlternativeD" class="form-control"></textarea>
+                <span asp-validation-for="AlternativeD" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="4">
+            </div>
+            <div>
+                <label asp-for="AlternativeE" class="control-label"></label>
+                <textarea asp-for="AlternativeE" class="form-control"></textarea>
+                <span asp-validation-for="AlternativeE" class="text-danger"></span>
+                <input asp-for="CorrectAnswer" class="form-control" type="radio" id="CorrectAnswer" name="CorrectAnswer" value="5">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

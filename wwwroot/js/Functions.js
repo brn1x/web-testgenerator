@@ -1,6 +1,6 @@
 ﻿var listElement = document.querySelector('#app ul');
 var inputElement = document.querySelector('#app textarea');
-var buttonElement = document.querySelector('#app button');
+var buttonElement = document.querySelector('#btn-send');
 
 var todos = [];
 
@@ -9,6 +9,8 @@ function renderTodos() {
 
     for (todo of todos) {
         var todoElement = document.createElement('li');
+        todoElement.setAttribute('class', 'form-control');
+
         var todoText = document.createTextNode(todo);
 
         var linkElement = document.createElement('a');
@@ -27,7 +29,6 @@ function renderTodos() {
         linkElement.appendChild(linkText);
 
         radioBtn.setAttribute('style', 'margin-left:10px;')
-        //linkElement.setAttribute('style', 'margin-left:10px;')
         linkElement.setAttribute('class', 'btn btn-danger form-control')
 
         todoElement.appendChild(todoText);
@@ -51,7 +52,7 @@ function addTodo() {
     renderTodos();
 }
 
-buttonElement.onclick = addTodo;
+buttonElement.onclick = addTodo();
 
 function deleteTodo(pos) {
     todos.splice(pos, 1);
