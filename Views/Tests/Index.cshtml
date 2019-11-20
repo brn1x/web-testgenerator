@@ -6,11 +6,23 @@
 
 <h1>Test Generator</h1>
 
+<p>
+    <a asp-action="Create" class="btn btn-success">Create new Test</a>
+</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Data)
+                Student
+            </th>
+            <th>
+                Period
+            </th>
+            <th>
+                Questions Number
+            </th>
+            <th>
+                Data
             </th>
             <th></th>
         </tr>
@@ -19,12 +31,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Period.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TestQuestions.Count)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Data)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="CreateFile" asp-route-id="@item.Id" class="btn btn-info">Download</a>
             </td>
         </tr>
 }
